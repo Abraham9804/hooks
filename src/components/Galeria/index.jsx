@@ -3,6 +3,8 @@ import Titulo from "../Titulo"
 import Populares from "./Populares"
 import Tag from "./Tags"
 import Imagen from "./Imagen"
+import { use, useContext } from "react"
+import { Contexto } from "../../Contexto/Contexto"
 
 const GaleriaContainer = styled.div`
 display: flex;
@@ -20,8 +22,8 @@ const ImagenesContainer = styled.section`
 `
 
 
-const Galeria = ({ fotos = [], alSeleccionarFoto,alAlternarFavorito }) => {
-
+const Galeria = ({alSeleccionarFoto}) => {
+    const {fotosDeGaleria, consulta, alAlternarFavorito, setFotoSeleccionada} = useContext(Contexto)
     return (
         <>
             <Tag />
@@ -29,9 +31,10 @@ const Galeria = ({ fotos = [], alSeleccionarFoto,alAlternarFavorito }) => {
                 <SeccionFluida>
                     <Titulo>Navegue por la galería</Titulo>
                     <ImagenesContainer>
-                        {fotos.map(foto => <Imagen
-                        alAlternarFavorito= {alAlternarFavorito}
-                        alSolicitarZoom={alSeleccionarFoto}
+                        {fotosDeGaleria.filter(foto => {
+                            return foto.titulo.toLowerCase().includes(consulta.toLowerCase())
+                        }).map(foto => <Imagen
+                        alSolicitarZoom ={foto => setFotoSeleccionada(foto) }
                             key={foto.id}
                             foto={foto} />)
                         }

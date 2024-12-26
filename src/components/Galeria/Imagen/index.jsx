@@ -1,5 +1,7 @@
 import { styled } from "styled-components"
 import BotonIcono from "../../BotonIcono"
+import { useContext } from "react"
+import { Contexto } from "../../../Contexto/Contexto"
 const Figure = styled.figure`
     width: ${props => props.$expandida ? '90%' : '370px'};
     max-width: 100%;
@@ -35,7 +37,8 @@ const Pie = styled.footer`
     align-items: center;
 `
 
-const Imagen = ({ foto, expandida = false, alSolicitarZoom,alAlternarFavorito}) => {
+const Imagen = ({ foto, expandida = false, alSolicitarZoom}) => {
+    const {alAlternarFavorito} = useContext(Contexto)
     
  const iconoFavorito= foto.favorita ? "/iconos/favorito-activo.png" :"/iconos/favorito.png"   
     
